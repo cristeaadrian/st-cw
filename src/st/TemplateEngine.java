@@ -8,10 +8,10 @@ public class TemplateEngine {
 
     public static final Integer DELETE_UNMATCHED = 1;
     public static final Integer KEEP_UNMATCHED = 0;
-    public static final Integer CASE_SENSATIVE = 2;
-    public static final Integer CASE_INSENSATIVE = 0;
+    public static final Integer CASE_SENSITIVE = 2;
+    public static final Integer CASE_INSENSITIVE = 0;
     public static final Integer BLUR_SEARCH = 4;
-    public static final Integer ACURATE_SEARCH = 0;
+    public static final Integer ACCURATE_SEARCH = 0;
     public static final Integer DEFAULT = 0;
 
     private static final Character TEMPLATE_START_PREFIX = '$';
@@ -76,7 +76,7 @@ public class TemplateEngine {
     }
     
     private Boolean caseInsensative(Integer matchingMode) {
-        if ((matchingMode & CASE_SENSATIVE) == CASE_SENSATIVE) {
+        if ((matchingMode & CASE_SENSITIVE) == CASE_SENSITIVE) {
             return Boolean.FALSE;
         } else {
             return Boolean.TRUE;

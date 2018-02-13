@@ -4,7 +4,7 @@ public class SimpleTemplateEngine {
 
     private static final Character TEMPLATE_SUFFIX = '#';
 
-    public static final Integer CASE_SENSATIVE = 1;
+    public static final Integer CASE_SENSITIVE = 1;
     public static final Integer WHOLE_WORLD_SEARCH = 2;
     public static final Integer DEFAULT_MATCH = 0;
 
@@ -140,7 +140,7 @@ public class SimpleTemplateEngine {
     }
 
     private Boolean caseSensative(Integer matchingMode) {
-        if ((matchingMode & CASE_SENSATIVE) == CASE_SENSATIVE) {
+        if ((matchingMode & CASE_SENSITIVE) == CASE_SENSITIVE) {
             return Boolean.TRUE;
         } else {
             return Boolean.FALSE;
