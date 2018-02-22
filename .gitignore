@@ -1,0 +1,3 @@
+# Specify directories to ignore
+lib/
+out/
