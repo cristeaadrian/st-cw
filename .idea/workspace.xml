@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="38c601a1-e5a1-4715-bb04-5213b410f3f4" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/adriancristea.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/test/Task1-Coverage.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/test/Task1-Functional.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/st-cw1.iml" afterPath="$PROJECT_DIR$/st-cw1.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,12 +17,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SimpleTemplateEngine.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SimpleTemplateEngine.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/st/SimpleTemplateEngine.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Task1-Functional.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/Task1-Functional.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#962#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Task1-Coverage.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/Task1-Coverage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#1199#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -34,6 +60,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/st/SimpleTemplateEngine.java" />
+        <option value="$PROJECT_DIR$/test/Task1-Functional.java" />
+        <option value="$PROJECT_DIR$/test/Task1-Coverage.java" />
       </list>
     </option>
   </component>
@@ -69,13 +97,7 @@
             <path>
               <item name="st-cw1" type="b2602c69:ProjectViewProjectNode" />
               <item name="st-cw1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="st-cw1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="st-cw1" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="st" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -189,6 +211,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="finished settings for intellij project" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished settings for intellij project" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -205,8 +231,28 @@
     <entry file="file://$PROJECT_DIR$/src/st/SimpleTemplateEngine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Task1-Functional.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="16" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#962#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/Task1-Coverage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="0" lean-forward="true" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1199#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
