@@ -9,9 +9,10 @@ Specifications.pdf file.
 
 Functional testing is a black box testing technique, so use the specification file to derive tests and not the source code.
 The jar file under the jar directory can be used to execute the tests derived from the specification.
-We have also provided a sample JUnit test case, TemplateEngineTest.java file, to illustrate a typical test case for
+We have also provided a sample JUnit test case, test.TemplateEngineTest.java file, to illustrate a typical test case for
 the implementation in ST_Coursework.jar.
 
 In giving a grade for this part of the practical I will take into account the performance of your test set
 on a collection of variants/mutants of the specification.
  */
+
