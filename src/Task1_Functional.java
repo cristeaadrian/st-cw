@@ -25,6 +25,10 @@ public class Task1_Functional {
         simpleEngine = new SimpleTemplateEngine();
     }
 
+    /*
+    --------------------- EntryMap Tests -----------------------
+     */
+
     @Test (expected=RuntimeException.class)
     public void storeFirstArgumentNull() {
         map.store(null, "Adam");
@@ -99,5 +103,13 @@ public class Task1_Functional {
 //        map.store("name", "Adam");
 //        map.update("surname", "Zaharia");
 //    }
+
+    /*
+    ------------------ TemplateEngine Tests -----------------------
+     */
+
+    /*
+    -------------- SimpleTemplateEngine Tests----------------------
+     */
 
 }
