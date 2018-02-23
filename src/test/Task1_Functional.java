@@ -43,34 +43,29 @@ public class Task1_Functional {
         simpleEngine = new SimpleTemplateEngine();
     }
 
-    //EntryMap.store() tests
     @Test (expected=RuntimeException.class)
-    public void Test1() {
+    public void firstArgumentNullStore() {
         map.store(null, "Adam");
     }
 
     @Test (expected=RuntimeException.class)
-    public void Test2() {
+    public void firstArgumentEmptyStore() {
         map.store("", "Adam");
     }
 
     @Test (expected=RuntimeException.class)
-    public void Test3() {
+    public void secondArgumentNullStore() {
         map.store("name", null);
     }
 
-    @Test ()
-    public void Test6() {
+    @Test
+    public void everythingValidStore() {
+        /*
+        Test for the case in which the store function gets correct inputs
+        and the map exists, has no duplicates and is ordered
+         */
         map.store("name", "Adam");
-        ArrayList<EntryMap.Entry> entries = map.getEntries();
-        for (Map.Entry entr)
+        map.store("surname", "Dykes");
     }
-
-
-//    public void Test4() {
-//        EntryMap map_2 = new EntryMap();
-//        assertSame(map_2, map);
-//        map_2.store("name", null);
-//    }
 
 }
