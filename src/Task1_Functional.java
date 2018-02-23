@@ -19,7 +19,7 @@ public class Task1_Functional {
     private SimpleTemplateEngine simpleEngine;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         map = new EntryMap();
         engine = new TemplateEngine();
         simpleEngine = new SimpleTemplateEngine();
@@ -66,22 +66,26 @@ public class Task1_Functional {
 
     @Test (expected=RuntimeException.class)
     public void updateNullFirstArgument() {
-
+        map.store("name", "Adam");
+        map.update(null, "Frank");
     }
 
     @Test (expected=RuntimeException.class)
     public void updateEmptyFirstArgument() {
-
+        map.store("name", "Adam");
+        map.update("", "Frank");
     }
 
     @Test (expected=RuntimeException.class)
     public void updateNullSecondArgument() {
-
+        map.store("name", "Adam");
+        map.update("name", null);
     }
 
-    @Test (expected=RuntimeException.class)
-    public void updateNonExisting() {
-
-    }
+//    @Test
+//    public void updateNonExisting() {
+//        map.store("name", "Adam");
+//        map.update("surname", "Zaharia");
+//    }
 
 }
