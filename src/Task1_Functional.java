@@ -41,7 +41,7 @@ public class Task1_Functional {
     }
 
     @Test
-    public void storeEverythingValid() {
+    public void storeValid() {
         map.store("name", "Adam");
         map.store("surname", "Dykes");
     }
@@ -61,7 +61,13 @@ public class Task1_Functional {
     @Test
     public void deleteNonExisting() {
         map.store("name", "Adam");
-        map.delete("Frank");
+        map.delete("surname");
+    }
+
+    @Test
+    public void deleteValid() {
+        map.store("name", "Adam");
+        map.delete("name");
     }
 
     @Test (expected=RuntimeException.class)
@@ -80,6 +86,12 @@ public class Task1_Functional {
     public void updateNullSecondArgument() {
         map.store("name", "Adam");
         map.update("name", null);
+    }
+
+    @Test
+    public void updateValid() {
+        map.store("name", "Adam");
+        map.update("name", "Frank");
     }
 
 //    @Test
