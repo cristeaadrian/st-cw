@@ -29,17 +29,17 @@ public class Task1_Functional {
     -------------------- EntryMap Tests -----------------------
      */
 
-    @Test (expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void storeFirstArgumentNull() {
         map.store(null, "Adam");
     }
 
-    @Test (expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void storeFirstArgumentEmpty() {
         map.store("", "Adam");
     }
 
-    @Test (expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void storeSecondArgumentNull() {
         map.store("name", null);
     }
@@ -50,13 +50,13 @@ public class Task1_Functional {
         map.store("surname", "Dykes");
     }
 
-    @Test (expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void deleteNull() {
         map.store("name", "Adam");
         map.delete(null);
     }
 
-    @Test (expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void deleteEmpty() {
         map.store("name", "Adam");
         map.delete("");
@@ -74,19 +74,19 @@ public class Task1_Functional {
         map.delete("name");
     }
 
-    @Test (expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void updateNullFirstArgument() {
         map.store("name", "Adam");
         map.update(null, "Frank");
     }
 
-    @Test (expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void updateEmptyFirstArgument() {
         map.store("name", "Adam");
         map.update("", "Frank");
     }
 
-    @Test (expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void updateNullSecondArgument() {
         map.store("name", "Adam");
         map.update("name", null);
