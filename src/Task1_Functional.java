@@ -26,26 +26,22 @@ public class Task1_Functional {
     }
 
     @Test (expected=RuntimeException.class)
-    public void firstArgumentNullStore() {
+    public void storeFirstArgumentNull() {
         map.store(null, "Adam");
     }
 
     @Test (expected=RuntimeException.class)
-    public void firstArgumentEmptyStore() {
+    public void storeFirstArgumentEmpty() {
         map.store("", "Adam");
     }
 
     @Test (expected=RuntimeException.class)
-    public void secondArgumentNullStore() {
+    public void storeSecondArgumentNull() {
         map.store("name", null);
     }
 
     @Test
-    public void everythingValidStore() {
-        /*
-        Test for the case in which the store function gets correct inputs
-        and the map exists, has no duplicates and is ordered
-         */
+    public void storeEverythingValid() {
         map.store("name", "Adam");
         map.store("surname", "Dykes");
     }
@@ -66,6 +62,26 @@ public class Task1_Functional {
     public void deleteNonExisting() {
         map.store("name", "Adam");
         map.delete("Frank");
+    }
+
+    @Test (expected=RuntimeException.class)
+    public void updateNullFirstArgument() {
+
+    }
+
+    @Test (expected=RuntimeException.class)
+    public void updateEmptyFirstArgument() {
+
+    }
+
+    @Test (expected=RuntimeException.class)
+    public void updateNullSecondArgument() {
+
+    }
+
+    @Test (expected=RuntimeException.class)
+    public void updateNonExisting() {
+
     }
 
 }
