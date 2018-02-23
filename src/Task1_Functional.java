@@ -62,4 +62,10 @@ public class Task1_Functional {
         map.delete("");
     }
 
+    @Test
+    public void deleteNonExisting() {
+        map.store("name", "Adam");
+        map.delete("Frank");
+    }
+
 }
