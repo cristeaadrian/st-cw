@@ -26,7 +26,7 @@ public class Task1_Functional {
     }
 
     /*
-    --------------------- EntryMap Tests -----------------------
+    -------------------- EntryMap Tests -----------------------
      */
 
     @Test (expected=RuntimeException.class)
