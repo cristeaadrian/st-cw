@@ -63,10 +63,10 @@ public class Task1_Functional {
         map.store("Name", "Frank");
         Integer matchingMode = TemplateEngine.CASE_SENSITIVE;
         String result = engine.evaluate("Hello ${Name}, ${name}", map, matchingMode);
-        assertEquals("Hello Frank Adam", result);
+        assertEquals("Hello Frank, Adam", result);
         matchingMode = TemplateEngine.CASE_INSENSITIVE;
         result = engine.evaluate("Hello ${Name}, ${name}", map, matchingMode);
-        assertEquals("Hello Adam Adam", result);
+        assertEquals("Hello Adam, Adam", result);
     }
 
     @Test
