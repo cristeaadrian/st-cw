@@ -263,24 +263,24 @@ public class Task1_Functional {
 
     @Test
     public void simpleEvaluateNullPattern() {
-        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
         String template = "Hello, this is DAVID. David is 25 years old.";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
         String result = simpleEngine.evaluate(template,null, "Tom", matchingMode);
         assertEquals(template, result);
     }
 
     @Test
     public void simpleEvaluateEmptyPattern() {
-        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
         String template = "Hello, this is DAVID. David is 25 years old.";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
         String result = simpleEngine.evaluate(template,"", "Tom", matchingMode);
         assertEquals(template, result);
     }
 
     @Test
     public void simpleEvaluateNullValue() {
-        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
         String template = "Hello, this is DAVID. David is 25 years old.";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
         String result = simpleEngine.evaluate(template,"David", null, matchingMode);
         assertEquals(template, result);
     }
@@ -292,4 +292,115 @@ public class Task1_Functional {
         String result = simpleEngine.evaluate(template,"David", "", matchingMode);
         assertEquals(template, result);
     }
+
+    @Test
+    public void simpleEvaluateReplaceAll() {
+        String template = "David has a son David and a brother David.";
+        String pattern = "David";
+        String value = "Tom";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("Tom has a son Tom and a brother Tom.", result);
+    }
+
+    @Test
+    public void simpleEvaluateReplaceThird() {
+        String template = "David has a son David and a brother David.";
+        String pattern = "David#3";
+        String value = "Tom";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("David has a son David and a brother Tom.", result);
+    }
+
+    @Test
+    public void simpleEvaluateReplaceNonexistent() {
+        String template = "David has a son David and a brother David.";
+        String pattern = "David#4";
+        String value = "Tom";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals(template, result);
+    }
+
+    @Test
+    public void simpleEvaluateReplaceHash() {
+        String template = "David #2nd has a son, David #3rd.";
+        String pattern = "David ##";
+        String value = "Tom #";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("Tom #2nd has a son, Tom #3rd.", result);
+    }
+
+    @Test
+    public void simpleEvaluateReplaceSecondHash() {
+        String template = "David #2nd has a son, David #3rd.";
+        String pattern = "David ###2";
+        String value = "Tom #";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("David #2nd has a son, Tom #3rd.", result);
+    }
+
+    @Test
+    public void simpleEvaluateReplaceEarlyHash() {
+        String template = "David has a son David and a brother David.";
+        String pattern = "Davi#3d";
+        String value = "Donal";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("David has a son David and a brother Donald.", result);
+    }
+
+    @Test
+    public void simpleEngineCaseSensitive() {
+        String template = "Hello, this is DAVID. David is 25 years old.";
+        String pattern = "DAVID";
+        String value = "Tom";
+        Integer matchingMode = SimpleTemplateEngine.CASE_SENSITIVE;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("Hello, this is Tom. David is 25 years old.", result);
+    }
+
+    @Test
+    public void simpleEngineWholeWordSearchEnabled() {
+        String template = "localVARIABLE int localId = local";
+        String pattern = "local";
+        String value = "global";
+        Integer matchingMode = SimpleTemplateEngine.WHOLE_WORLD_SEARCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("localVARIABLE int localId = global", result);
+    }
+
+    @Test
+    public void simpleEngineWholeWordSearchDisabled() {
+        String template = "localVARIABLE int localId = local";
+        String pattern = "local";
+        String value = "global";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("globalVARIABLE int globalId = global", result);
+    }
+
+    @Test
+    public void simpleEngineCaseSensitiveAndWholeWordSearch() {
+        String template = "localVARIABLE int localId = local; globalVARIABLE int LOCAL = global;";
+        String pattern = "LOCAL";
+        String value = "globalId";
+        Integer matchingMode = SimpleTemplateEngine.WHOLE_WORLD_SEARCH | SimpleTemplateEngine.CASE_SENSITIVE;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("localVARIABLE int localId = local; globalVARIABLE int globalId = global;", result);
+    }
+
+    @Test
+    public void simpleEngineNoRecursion() {
+        String template = "defabc";
+        String pattern = "abc";
+        String value = "abcabc";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("defabcabc", result);
+    }
+
 }
