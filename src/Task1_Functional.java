@@ -354,7 +354,7 @@ public class Task1_Functional {
     }
 
     @Test
-    public void simpleEngineCaseSensitive() {
+    public void simpleEvaluateCaseSensitive() {
         String template = "Hello, this is DAVID. David is 25 years old.";
         String pattern = "DAVID";
         String value = "Tom";
@@ -364,7 +364,7 @@ public class Task1_Functional {
     }
 
     @Test
-    public void simpleEngineWholeWordSearchEnabled() {
+    public void simpleEvaluateWholeWordSearchEnabled() {
         String template = "localVARIABLE int localId = local";
         String pattern = "local";
         String value = "global";
@@ -374,7 +374,7 @@ public class Task1_Functional {
     }
 
     @Test
-    public void simpleEngineWholeWordSearchDisabled() {
+    public void simpleEvaluateWholeWordSearchDisabled() {
         String template = "localVARIABLE int localId = local";
         String pattern = "local";
         String value = "global";
@@ -384,7 +384,7 @@ public class Task1_Functional {
     }
 
     @Test
-    public void simpleEngineCaseSensitiveAndWholeWordSearch() {
+    public void simpleEvaluateCaseSensitiveAndWholeWordSearch() {
         String template = "localVARIABLE int localId = local; globalVARIABLE int LOCAL = global;";
         String pattern = "LOCAL";
         String value = "globalId";
@@ -394,7 +394,7 @@ public class Task1_Functional {
     }
 
     @Test
-    public void simpleEngineNoRecursion() {
+    public void simpleEvaluateNoRecursion() {
         String template = "defabc";
         String pattern = "abc";
         String value = "abcabc";
