@@ -105,6 +105,43 @@ public class Task1_Functional {
 //        map.update("surname", "Zaharia");
 //    }
 
+    @Test
+    public void checkUpdateOrder() {
+        map.store("name", "Adam");
+        map.store("surname", "Dykes");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam Dykes", result);
+        map.delete("name");
+        result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello ${name} Dykes", result);
+        map.store("name", "Frank");
+        result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Frank Dykes", result);
+    }
+
+    @Test
+    public void test1() { //EntryMap order preservation
+        map.store("name", "Adam");
+        map.store("Name", "Andra");
+        Integer matchingMode = TemplateEngine.CASE_SENSITIVE;
+        String result = engine.evaluate("Hello ${name}", map, matchingMode);
+        assertEquals("Hello Adam", result);
+        result = engine.evaluate("Hello ${Name}", map, matchingMode);
+        assertEquals("Hello Andra", result);
+        map.delete("name");
+        map.store("name", "Frank");
+        matchingMode = TemplateEngine.CASE_INSENSITIVE;
+        result = engine.evaluate("Hello ${name}", map, matchingMode);
+        assertEquals("Hello Andra", result);
+        map.update("name", "Joe");
+        result = engine.evaluate("Hello ${name}", map, matchingMode);
+        assertEquals("Hello Andra", result);
+        matchingMode = TemplateEngine.CASE_SENSITIVE;
+        result = engine.evaluate("Hello ${name}", map, matchingMode);
+        assertEquals("Hello Joe", result);
+    }
+
     /*
     ------------------ TemplateEngine Tests -----------------------
      */
@@ -225,7 +262,7 @@ public class Task1_Functional {
     }
 
     @Test
-    public void evaluateBoundary() {
+    public void evaluateBoundary() { //probably useless
         map.store("name", "Adam");
         map.store("surname", "Dykes");
         Integer matchingMode = TemplateEngine.DEFAULT;
