@@ -46,9 +46,26 @@ public class Task1_Functional {
     }
 
     @Test
+    public void storeExisting() {
+        map.store("name", "Adam");
+        map.store("name", "Frank");
+        Integer matchingMode = TemplateEngine.CASE_INSENSITIVE;
+        String result = engine.evaluate("Hello ${name}", map, matchingMode);
+        assertEquals("Hello Adam", result);
+        map.delete("name");
+        result = engine.evaluate("Hello ${name}", map, matchingMode);
+        assertEquals("Hello ${name}", result);
+    }
+
+    @Test
     public void storeValid() {
         map.store("name", "Adam");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam ${surname}", result);
         map.store("surname", "Dykes");
+        result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam Dykes", result);
     }
 
     @Test(expected = RuntimeException.class)
@@ -66,13 +83,23 @@ public class Task1_Functional {
     @Test
     public void deleteNonExisting() {
         map.store("name", "Adam");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result1 = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
         map.delete("surname");
+        String result2 = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals(result1, result2);
     }
 
     @Test
     public void deleteValid() {
         map.store("name", "Adam");
-        map.delete("name");
+        map.store("surname", "Dykes");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam Dykes", result);
+        map.delete("surname");
+        result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam ${surname}", result);
     }
 
     @Test(expected = RuntimeException.class)
@@ -96,32 +123,27 @@ public class Task1_Functional {
     @Test
     public void updateValid() {
         map.store("name", "Adam");
-        map.update("name", "Frank");
-    }
-
-//    @Test
-//    public void updateNonExisting() {
-//        map.store("name", "Adam");
-//        map.update("surname", "Zaharia");
-//    }
-
-    @Test
-    public void checkUpdateOrder() {
-        map.store("name", "Adam");
         map.store("surname", "Dykes");
         Integer matchingMode = TemplateEngine.DEFAULT;
         String result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
         assertEquals("Hello Adam Dykes", result);
-        map.delete("name");
+        map.update("surname", "Frank");
         result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
-        assertEquals("Hello ${name} Dykes", result);
-        map.store("name", "Frank");
-        result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
-        assertEquals("Hello Frank Dykes", result);
+        assertEquals("Hello Adam Frank", result);
     }
 
     @Test
-    public void test1() { //EntryMap order preservation
+    public void updateNonExisting() {
+        map.store("name", "Adam");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result1 = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        map.update("surname", "Dykes");
+        String result2 = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals(result1, result2);
+    }
+
+    @Test
+    public void entryMapOrderPreservation() {
         map.store("name", "Adam");
         map.store("Name", "Andra");
         Integer matchingMode = TemplateEngine.CASE_SENSITIVE;
