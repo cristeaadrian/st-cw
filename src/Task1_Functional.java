@@ -238,16 +238,6 @@ public class Task1_Functional {
      */
 
     @Test
-    public void testSimpleTemplateEngine() {
-        String template = "Hi, my name is David. David is my forename.";
-        String pattern = "David#2";
-        String value = "Peter";
-        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
-        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
-        assertEquals("Hi, my name is David. Peter is my forename.", result);
-    }
-
-    @Test
     public void simpleEvaluateNullTemplate() {
         Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
         String result = simpleEngine.evaluate(null, "David", "Tom", matchingMode);
