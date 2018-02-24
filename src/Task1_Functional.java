@@ -237,6 +237,59 @@ public class Task1_Functional {
     -------------- SimpleTemplateEngine Tests----------------------
      */
 
+    @Test
+    public void testSimpleTemplateEngine() {
+        String template = "Hi, my name is David. David is my forename.";
+        String pattern = "David#2";
+        String value = "Peter";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("Hi, my name is David. Peter is my forename.", result);
+    }
 
+    @Test
+    public void simpleEvaluateNullTemplate() {
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(null, "David", "Tom", matchingMode);
+        assertEquals(null, result);
+    }
 
+    @Test
+    public void simpleEvaluateEmptyTemplate() {
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate("", "David", "Tom", matchingMode);
+        assertEquals("", result);
+    }
+
+    @Test
+    public void simpleEvaluateNullPattern() {
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String template = "Hello, this is DAVID. David is 25 years old.";
+        String result = simpleEngine.evaluate(template,null, "Tom", matchingMode);
+        assertEquals(template, result);
+    }
+
+    @Test
+    public void simpleEvaluateEmptyPattern() {
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String template = "Hello, this is DAVID. David is 25 years old.";
+        String result = simpleEngine.evaluate(template,"", "Tom", matchingMode);
+        assertEquals(template, result);
+    }
+
+    @Test
+    public void simpleEvaluateNullValue() {
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String template = "Hello, this is DAVID. David is 25 years old.";
+        String result = simpleEngine.evaluate(template,"David", null, matchingMode);
+        assertEquals(template, result);
+    }
+
+    @Test
+    public void simpleEvaluateEmptyValue() {
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String template = "Hello, this is DAVID. David is 25 years old.";
+        String result = simpleEngine.evaluate(template,"David", "", matchingMode);
+        assertEquals(template, result);
+    }
 }
