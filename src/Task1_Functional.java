@@ -191,7 +191,7 @@ public class Task1_Functional {
     }
 
     @Test
-    public void evaluateMatchingModeContradictoryCase() {
+    public void evaluateMatchingModeContradictoryCase() { // also tests spec6 - case_insensitive
         map.store("name", "Adam");
         map.store("Surname", "Dykes");
         Integer matchingMode = TemplateEngine.CASE_SENSITIVE | TemplateEngine.CASE_INSENSITIVE;
@@ -200,7 +200,7 @@ public class Task1_Functional {
     }
 
     @Test
-    public void evaluateMatchingModeContradictorySearch() {
+    public void evaluateMatchingModeContradictorySearch() { // also tests spec6 - case_sensitive
         map.store("name", "Adam");
         map.store("Surname", "Dykes");
         Integer matchingMode = TemplateEngine.ACCURATE_SEARCH | TemplateEngine.BLUR_SEARCH;
@@ -208,8 +208,35 @@ public class Task1_Functional {
         assertEquals("Hello Adam Dykes", result);
     }
 
+    @Test
+    public void evaluateBlurSearch() {
+        map.store("middlename", "Peter");
+        Integer matchingMode = TemplateEngine.BLUR_SEARCH;
+        String result = engine.evaluate("${middlename} has a son ${middle name} and a brother ${middle  name}", map, matchingMode);
+        assertEquals("Peter has a son Peter and a brother Peter", result);
+    }
+
+    @Test
+    public void evaluateAccurateSearch() {
+        map.store("middlename", "Peter");
+        Integer matchingMode = TemplateEngine.ACCURATE_SEARCH | TemplateEngine.DELETE_UNMATCHED;
+        String result = engine.evaluate("${middlename} has a son ${middle name} and a brother ${middle  name}", map, matchingMode);
+        assertEquals("Peter has a son  and a brother ", result);
+    }
+
+    @Test
+    public void evaluateBoundary() {
+        map.store("name", "Adam");
+        map.store("surname", "Dykes");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("Hello ${${name} }${surname}", map, matchingMode);
+        assertEquals("Hello ${Adam }Dykes", result);
+    }
+
     /*
     -------------- SimpleTemplateEngine Tests----------------------
      */
+
+
 
 }
