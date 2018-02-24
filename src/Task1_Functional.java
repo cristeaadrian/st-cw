@@ -143,25 +143,48 @@ public class Task1_Functional {
     }
 
     @Test
-    public void entryMapOrderPreservation() {
+    public void storeOrderPreservation() {
+        map.store("name", "Adam");
+        map.store("Name", "Frank");
+        Integer matchingMode = TemplateEngine.CASE_SENSITIVE;
+        String result = engine.evaluate("Hello ${Name}, ${name}", map, matchingMode);
+        assertEquals("Hello Frank Adam", result);
+        matchingMode = TemplateEngine.CASE_INSENSITIVE;
+        result = engine.evaluate("Hello ${Name}, ${name}", map, matchingMode);
+        assertEquals("Hello Adam Adam", result);
+    }
+
+    @Test
+    public void deleteOrderPreservation() {
         map.store("name", "Adam");
         map.store("Name", "Andra");
         Integer matchingMode = TemplateEngine.CASE_SENSITIVE;
-        String result = engine.evaluate("Hello ${name}", map, matchingMode);
-        assertEquals("Hello Adam", result);
-        result = engine.evaluate("Hello ${Name}", map, matchingMode);
-        assertEquals("Hello Andra", result);
+        String result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Adam, Andra", result);
         map.delete("name");
         map.store("name", "Frank");
         matchingMode = TemplateEngine.CASE_INSENSITIVE;
-        result = engine.evaluate("Hello ${name}", map, matchingMode);
-        assertEquals("Hello Andra", result);
-        map.update("name", "Joe");
-        result = engine.evaluate("Hello ${name}", map, matchingMode);
-        assertEquals("Hello Andra", result);
+        result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Andra, Andra", result);
         matchingMode = TemplateEngine.CASE_SENSITIVE;
-        result = engine.evaluate("Hello ${name}", map, matchingMode);
-        assertEquals("Hello Joe", result);
+        result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Frank, Andra", result);
+    }
+
+    @Test
+    public void updateOrderPreservation() {
+        map.store("name", "Adam");
+        map.store("Name", "Andra");
+        Integer matchingMode = TemplateEngine.CASE_SENSITIVE;
+        String result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Adam, Andra", result);
+        map.update("name", "Joe");
+        matchingMode = TemplateEngine.CASE_INSENSITIVE;
+        result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Joe, Joe", result);
+        matchingMode = TemplateEngine.CASE_SENSITIVE;
+        result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Joe, Andra", result);
     }
 
     /*
