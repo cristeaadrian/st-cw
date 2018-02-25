@@ -302,8 +302,8 @@ public class Task1_Functional {
     public void evaluateAccurateSearch() {
         map.store("middlename", "Peter");
         Integer matchingMode = TemplateEngine.ACCURATE_SEARCH | TemplateEngine.DELETE_UNMATCHED;
-        String result = engine.evaluate("${middlename} has a son ${middle name} and a brother ${middle  name}", map, matchingMode);
-        assertEquals("Peter has a son  and a brother ", result);
+        String result = engine.evaluate("${middlename} has a son ${middlename} and a brother ${middle  name}", map, matchingMode);
+        assertEquals("Peter has a son Peter and a brother ", result);
     }
 
     @Test
@@ -323,18 +323,7 @@ public class Task1_Functional {
         assertEquals("${fgijk nopqr}", result);
         map.store("fgijk nopqr", "Hello world");
         result = engine.evaluate("${fgijk${lm}nopqr}", map, matchingMode);
-        assertEquals("fgijk nopqr", result);
         assertEquals("Hello world", result);
-    }
-
-    @Test
-    public void templateOrderSameLength() {
-        map.store("a", "World");
-        map.store("b", "Hello");
-        map.store("xHelloxWorldx", "Hello, World");
-        Integer matchingMode = TemplateEngine.ACCURATE_SEARCH;
-        String result = engine.evaluate("${x${b}x${a}x}", map, matchingMode);
-        assertEquals("Hello, World", result);
     }
 
     /*
