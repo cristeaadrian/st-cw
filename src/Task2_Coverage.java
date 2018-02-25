@@ -46,6 +46,24 @@ public class Task2_Coverage {
     /*
     ------------------ TemplateEngine Tests -----------------------
      */
+    
+    @Test
+    public void templateLessThanZeroMatchingMode() {
+    		map.store("name", "Adam");
+        map.store("surname", "Dykes");
+        Integer matchingMode = -1;
+        String result = engine.evaluate("Hello ${name} ${SURNAME}", map, matchingMode);
+        assertEquals("Hello Adam Dykes", result);
+    }
+    
+    @Test
+    public void templateMoreThanSevenMatchingMode() {
+    		map.store("name", "Adam");
+        map.store("surname", "Dykes");
+        Integer matchingMode = 8;
+        String result = engine.evaluate("Hello ${name} ${SURNAME}", map, matchingMode);
+        assertEquals("Hello Adam Dykes", result);
+    }
 
     /*
     -------------- SimpleTemplateEngine Tests ----------------------
