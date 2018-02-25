@@ -322,6 +322,69 @@ public class Task1_Functional {
         assertEquals("Hello world", result);
     }
 
+    @Test
+    public void templateAllInputPossibilitiesDefaultMode() {
+        String result;
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        map.store("name", "Andra");
+        map.store("surname", "Zaharia");
+        map.store("fullname", "Andra Zaharia");
+
+        // Test 1: Multiple Levels of Input Brackets
+        result = engine.evaluate("${${${fullname}}}", map, matchingMode);
+        assertEquals("${${Andra Zaharia}}", result);
+        matchingMode = TemplateEngine.DELETE_UNMATCHED;
+        result = engine.evaluate("${${${fullname}}}", map, matchingMode);
+        assertEquals("", result);
+        matchingMode = TemplateEngine.DEFAULT;
+
+        // Test 2: One dollar sign
+        result = engine.evaluate("${fullname} $", map, matchingMode);
+        assertEquals("Andra Zaharia $", result);
+        result = engine.evaluate("$ ${fullname}", map, matchingMode);
+        assertEquals("$ Andra Zaharia", result);
+
+        // Test 3: Multiple dollar signs
+        result = engine.evaluate("${fullname} $ $", map, matchingMode);
+        assertEquals("Andra Zaharia $ $", result);
+        result = engine.evaluate("$ $ ${fullname}", map, matchingMode);
+        assertEquals("$ $ Andra Zaharia", result);
+        result = engine.evaluate("$ ${fullname} $", map, matchingMode);
+        assertEquals("$ Andra Zaharia $", result);
+
+        // Test 4: One Open Bracket
+        result = engine.evaluate("${fullname} {", map, matchingMode);
+        assertEquals("Andra Zaharia {", result);
+        result = engine.evaluate("{ ${fullname}", map, matchingMode);
+        assertEquals("{ Andra Zaharia", result);
+
+        // Test 5: Multiple Open Brackets
+        result = engine.evaluate("${fullname} { {{", map, matchingMode);
+        assertEquals("Andra Zaharia { {{", result);
+        result = engine.evaluate("{{ { ${fullname}", map, matchingMode);
+        assertEquals("{{ { Andra Zaharia", result);
+        result = engine.evaluate("{ {{ ${fullname} {{ {", map, matchingMode);
+        assertEquals("{ {{ Andra Zaharia {{ {", result);
+
+        // Test 6: One Closing Bracket
+        result = engine.evaluate("${fullname} }", map, matchingMode);
+        assertEquals("Andra Zaharia }", result);
+        result = engine.evaluate("} ${fullname}", map, matchingMode);
+        assertEquals("} Andra Zaharia", result);
+
+        // Test 7: Multiple Closing Brackets
+        result = engine.evaluate("${fullname} } }}", map, matchingMode);
+        assertEquals("Andra Zaharia } }}", result);
+        result = engine.evaluate("}} } ${fullname}", map, matchingMode);
+        assertEquals("}} } Andra Zaharia", result);
+        result = engine.evaluate("} }} ${fullname} }} }", map, matchingMode);
+        assertEquals("} }} Andra Zaharia }} }", result);
+
+        // Test 8: Combinations of open, closing brackets and dollar signs
+        result = engine.evaluate("}{ :{ :} $ $: :$: $} } { ${fullname} ${ ${: bla", map, matchingMode);
+        assertEquals("}{ :{ :} $ $: :$: $} } { Andra Zaharia ${ ${: bla", result);
+    }
+
     /*
     -------------- SimpleTemplateEngine Tests----------------------
      */
