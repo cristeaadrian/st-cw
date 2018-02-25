@@ -390,7 +390,7 @@ public class Task1_Functional {
     }
 
     /*
-    -------------- SimpleTemplateEngine Tests----------------------
+    -------------- SimpleTemplateEngine Tests ----------------------
      */
 
     @Test
