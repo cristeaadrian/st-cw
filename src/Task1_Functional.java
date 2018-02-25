@@ -1,15 +1,11 @@
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
+
 import st.EntryMap;
 import st.SimpleTemplateEngine;
 import st.TemplateEngine;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 public class Task1_Functional {
 
