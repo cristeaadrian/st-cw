@@ -21,6 +21,167 @@ public class Task1_Coverage {
         engine = new TemplateEngine();
         simpleEngine = new SimpleTemplateEngine();
     }
+    
+    /*
+    -------------------- EntryMap Tests -----------------------
+     */
+
+    @Test(expected = RuntimeException.class)
+    public void storeFirstArgumentNull() {
+        map.store(null, "Adam");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void storeFirstArgumentEmpty() {
+        map.store("", "Adam");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void storeSecondArgumentNull() {
+        map.store("name", null);
+    }
+
+    @Test
+    public void storeExisting() {
+        map.store("name", "Adam");
+        map.store("name", "Frank");
+        Integer matchingMode = TemplateEngine.CASE_INSENSITIVE;
+        String result = engine.evaluate("Hello ${name}", map, matchingMode);
+        assertEquals("Hello Adam", result);
+        map.delete("name");
+        result = engine.evaluate("Hello ${name}", map, matchingMode);
+        assertEquals("Hello ${name}", result);
+    }
+
+    @Test
+    public void storeOrderPreservation() {
+        map.store("name", "Adam");
+        map.store("Name", "Frank");
+        Integer matchingMode = TemplateEngine.CASE_SENSITIVE;
+        String result = engine.evaluate("Hello ${Name}, ${name}", map, matchingMode);
+        assertEquals("Hello Frank, Adam", result);
+        matchingMode = TemplateEngine.CASE_INSENSITIVE;
+        result = engine.evaluate("Hello ${Name}, ${name}", map, matchingMode);
+        assertEquals("Hello Adam, Adam", result);
+    }
+
+    @Test
+    public void storeValid() {
+        map.store("name", "Adam");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam ${surname}", result);
+        map.store("surname", "Dykes");
+        result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam Dykes", result);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void deleteNull() {
+        map.store("name", "Adam");
+        map.delete(null);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void deleteEmpty() {
+        map.store("name", "Adam");
+        map.delete("");
+    }
+
+    @Test
+    public void deleteNonExisting() {
+        map.store("name", "Adam");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result1 = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        map.delete("surname");
+        String result2 = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals(result1, result2);
+    }
+
+    @Test
+    public void deleteOrderPreservation() {
+        map.store("name", "Adam");
+        map.store("Name", "Andra");
+        Integer matchingMode = TemplateEngine.CASE_SENSITIVE;
+        String result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Adam, Andra", result);
+        map.delete("name");
+        map.store("name", "Frank");
+        matchingMode = TemplateEngine.CASE_INSENSITIVE;
+        result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Andra, Andra", result);
+        matchingMode = TemplateEngine.CASE_SENSITIVE;
+        result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Frank, Andra", result);
+    }
+
+    @Test
+    public void deleteValid() {
+        map.store("name", "Adam");
+        map.store("surname", "Dykes");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam Dykes", result);
+        map.delete("surname");
+        result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam ${surname}", result);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void updateNullFirstArgument() {
+        map.store("name", "Adam");
+        map.update(null, "Frank");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void updateEmptyFirstArgument() {
+        map.store("name", "Adam");
+        map.update("", "Frank");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void updateNullSecondArgument() {
+        map.store("name", "Adam");
+        map.update("name", null);
+    }
+
+    @Test
+    public void updateNonExisting() {
+        map.store("name", "Adam");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result1 = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        map.update("surname", "Dykes");
+        String result2 = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals(result1, result2);
+    }
+
+    @Test
+    public void updateOrderPreservation() {
+        map.store("name", "Adam");
+        map.store("Name", "Andra");
+        Integer matchingMode = TemplateEngine.CASE_SENSITIVE;
+        String result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Adam, Andra", result);
+        map.update("name", "Joe");
+        matchingMode = TemplateEngine.CASE_INSENSITIVE;
+        result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Joe, Joe", result);
+        matchingMode = TemplateEngine.CASE_SENSITIVE;
+        result = engine.evaluate("Hello ${name}, ${Name}", map, matchingMode);
+        assertEquals("Hello Joe, Andra", result);
+    }
+
+    @Test
+    public void updateValid() {
+        map.store("name", "Adam");
+        map.store("surname", "Dykes");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam Dykes", result);
+        map.update("surname", "Frank");
+        result = engine.evaluate("Hello ${name} ${surname}", map, matchingMode);
+        assertEquals("Hello Adam Frank", result);
+    }
 
     /*
     ------------------ TemplateEngine Tests -----------------------
