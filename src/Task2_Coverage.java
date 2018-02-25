@@ -134,7 +134,7 @@ public class Task2_Coverage {
         String value = "global";
         Integer matchingMode = SimpleTemplateEngine.WHOLE_WORLD_SEARCH;
         String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
-        assertEquals("localVARIABLE int localId = aglobal", result);
+        assertEquals("localVARIABLE int localId = alocal", result);
     }
     
     @Test
