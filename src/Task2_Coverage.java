@@ -80,5 +80,53 @@ public class Task2_Coverage {
         String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
         assertEquals("Tom has a son Tom and a brother Tom.", result);
     }
+    
+    @Test
+    public void simpleEvaluateReplaceTenth() {
+        String template = "David David David David David David David David David David.";
+        String pattern = "David#10";
+        String value = "Tom";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("David David David David David David David David David Tom.", result);
+    }
+    
+    @Test
+    public void simpleEvaluateInvalidReplacement() {
+    		String template = "David has a son David and a brother David.";
+        String pattern = "David#a";
+        String value = "Tom";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals(template, result);
+    }
+    
+    @Test
+    public void simpleInvalidPattern() {
+    		String template = "David has a son David and a brother David.";
+        Integer matchingMode = SimpleTemplateEngine.DEFAULT_MATCH;
+        String result = simpleEngine.evaluate(template, "#", "Tom", matchingMode);
+        assertEquals(template, result);
+    }
+    
+    @Test
+    public void simpleEvaluatePrefixedWholeWordSearch() {
+        String template = "localVARIABLE int localId = alocal";
+        String pattern = "local";
+        String value = "global";
+        Integer matchingMode = SimpleTemplateEngine.WHOLE_WORLD_SEARCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("localVARIABLE int localId = aglobal", result);
+    }
+    
+    @Test
+    public void simpleEvaluateWholeFirstWordSearch() {
+        String template = "local VARIABLE int localId = local";
+        String pattern = "local";
+        String value = "global";
+        Integer matchingMode = SimpleTemplateEngine.WHOLE_WORLD_SEARCH;
+        String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
+        assertEquals("global VARIABLE int localId = global", result);
+    }
 
 }
