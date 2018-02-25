@@ -315,6 +315,28 @@ public class Task1_Functional {
         assertEquals("Hello ${Adam }Dykes", result);
     }
 
+    @Test
+    public void templateOrder() {
+        map.store("lm", " ");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("${fgijk${lm}nopqr}", map, matchingMode);
+        assertEquals("${fgijk nopqr}", result);
+        map.store("fgijk nopqr", "Hello world");
+        result = engine.evaluate("${fgijk${lm}nopqr}", map, matchingMode);
+        assertEquals("fgijk nopqr", result);
+        assertEquals("Hello world", result);
+    }
+
+    @Test
+    public void templateOrderSameLength() {
+        map.store("a", "World");
+        map.store("b", "Hello");
+        map.store("xHelloxWorldx", "Hello, World");
+        Integer matchingMode = TemplateEngine.ACCURATE_SEARCH;
+        String result = engine.evaluate("${x${b}x${a}x}", map, matchingMode);
+        assertEquals("Hello, World", result);
+    }
+
     /*
     -------------- SimpleTemplateEngine Tests----------------------
      */
