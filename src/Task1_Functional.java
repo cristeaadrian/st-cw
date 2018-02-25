@@ -383,6 +383,10 @@ public class Task1_Functional {
         // Test 8: Combinations of open, closing brackets and dollar signs
         result = engine.evaluate("}{ :{ :} $ $: :$: $} } { ${fullname} ${ ${: bla", map, matchingMode);
         assertEquals("}{ :{ :} $ $: :$: $} } { Andra Zaharia ${ ${: bla", result);
+
+        // Test 9: Empty template with no match
+        result = engine.evaluate("${}", map, matchingMode );
+        assertEquals("${}", result);
     }
 
     /*
