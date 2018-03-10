@@ -1,5 +1,7 @@
 package st;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
@@ -19,8 +21,9 @@ public class TemplateEngine {
     private static final Character TEMPLATE_START = '{';
     private static final Character TEMPLATE_END = '}';
 
-    public Calendar now = Calendar.getInstance();   // Gets the current date and time
+    public Calendar now = Calendar.getInstance();          // Gets the current date and time
     public Integer currentYear = now.get(Calendar.YEAR);   // The current year
+    public Boolean replacementEligible = Boolean.FALSE;
 
     public TemplateEngine(){
 
@@ -39,14 +42,32 @@ public class TemplateEngine {
 
         ArrayList<Template> sortedTemplates = sortTemplates(templates);
 
+        // Check for a base year entry in the map to update the currentYear
         for (EntryMap.Entry entry : entryMap.getEntries()) {
             if (entry.getPattern().equals("base_year")) {
-                currentYear = Integer.parseInt(entry.getValue());
+                String value = entry.getValue();
+                System.out.println("Year: " + value);
+                if (value != null && value != "" && isParsable(value)) {
+                    Integer year = Integer.parseInt(value);
+                    if (year > 0) {
+                        currentYear = year;
+                    }
+                }
+                System.out.println("Current Year: " + currentYear);
             }
         }
         Result result = instantiate(templateString, sortedTemplates, entryMap.getEntries(), matchingMode);
 
         return result.getInstancedString();
+    }
+
+    public Boolean isParsable(String input){
+        try {
+            Integer.parseInt(input);
+        } catch (Exception e) {
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
     }
 
     private Boolean isEvaluationPossible(String templateString, EntryMap entryMap){
@@ -220,18 +241,33 @@ public class TemplateEngine {
 
     private String doReplace(String instancedString, Template currentTemplate, Integer currentTemplateIndex, String replaceValue, ArrayList<Template> sortedTemplates){
 
+        // Check if the replaceValue is either "in x years" or "x years ago"
         Integer minLength = Math.min("in x years".length(), "x years ago".length());
         if (currentTemplate.content.equals("year") && replaceValue.length() >= minLength) {
+            // Get indices for the number of years within string
             Integer endIdx = replaceValue.length();
             Integer startIdx = endIdx - " years ago".length();
-            if (replaceValue.substring(startIdx,endIdx).equals(" years ago")) {
-                Integer num = Integer.parseInt(replaceValue.substring(0, startIdx));
-                replaceValue = Integer.toString(currentYear - num);
+            if (replaceValue.substring(startIdx, endIdx).equals(" years ago")) {
+                // Parse the number of years and set the replaceValue accordingly
+                String value = replaceValue.substring(0, startIdx);
+                if (isParsable(value)) {
+                    Integer num = Integer.parseInt(value);
+                    if (num > -1) {
+                        replaceValue = Integer.toString(currentYear - num);
+                    }
+                }
             } else if (replaceValue.startsWith("in ") && replaceValue.endsWith(" years")) {
+                // Update indices for the number of years for "in x years" pattern
                 startIdx = "in ".length();
                 endIdx = replaceValue.length() - " years".length();
-                Integer num = Integer.parseInt(replaceValue.substring(startIdx, endIdx));
-                replaceValue = Integer.toString(currentYear + num);
+                // Parse the number in the template string and replace accordingly
+                String value = replaceValue.substring(startIdx, endIdx);
+                if (isParsable(value)) {
+                    Integer num = Integer.parseInt(value);
+                    if (num > -1) {
+                        replaceValue = Integer.toString(currentYear + num);
+                    }
+                }
             }
         }
 
