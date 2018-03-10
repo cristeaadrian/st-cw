@@ -158,10 +158,16 @@ public class Task2_Mutation {
 
     /*
     ---------------------- Mutation 4 ----------------------
-     * All Tests pass
+     * 1 Test fails
      */
 
-
+    @Test
+    public void longTemplate() {
+        map.store("${abcdefghijklmnopqrstuvwxyz0123456789}", "A very long template");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("${abcdefghijklmnopqrstuvwxyz0123456789}", map, matchingMode);
+        assertEquals(result, "");
+    }
 
     /*
     ---------------------- Mutation 5 ----------------------
