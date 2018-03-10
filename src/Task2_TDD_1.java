@@ -27,6 +27,7 @@ public class Task2_TDD_1 {
     /* Spec 1:
      * If X is not a number or a negative number then there should be no special treatment of the template ${year}.
      */
+
     @Test
     public void notNumber() {
         map.store("year", "in asdf years");

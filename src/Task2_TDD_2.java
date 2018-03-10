@@ -27,6 +27,7 @@ public class Task2_TDD_2 {
     /* Spec 1:
      * If X is not a number or a negative number then there should be no special treatment of the template ${year}.
      */
+
     @Test
     public void notNumber() {
         map.store("year", "in asdf years");
@@ -108,7 +109,7 @@ public class Task2_TDD_2 {
         assertEquals("I was born in " + Integer.toString(currentYear - 2), result);
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void containsBaseYearNull() {
         Calendar now = Calendar.getInstance();
         Integer currentYear = now.get(Calendar.YEAR);
