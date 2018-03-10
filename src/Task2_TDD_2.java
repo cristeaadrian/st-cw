@@ -52,6 +52,14 @@ public class Task2_TDD_2 {
         assertEquals("I was born in -10 years ago", result);
     }
 
+    @Test
+    public void emptyYear() {
+        map.store("year", "");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("I was born in ${year}", map, matchingMode);
+        assertEquals("I was born in ", result);
+    }
+
     /* Spec 2:
      * If X is zero then the replacement value should be the current year.
      */
@@ -62,6 +70,22 @@ public class Task2_TDD_2 {
         Integer currentYear = now.get(Calendar.YEAR);
 
         map.store("year", "in 0 years");
+        Integer matchingMode = TemplateEngine.DEFAULT;
+        String result = engine.evaluate("I was born in ${year}", map, matchingMode);
+        assertEquals("I was born in " + Integer.toString(currentYear), result);
+
+        map.update("year", "0 years ago");
+        result = engine.evaluate("I was born in ${year}", map, matchingMode);
+        assertEquals("I was born in " + Integer.toString(currentYear), result);
+    }
+
+    @Test
+    public void valueIsZeroBaseYearExists() {
+        Calendar now = Calendar.getInstance();
+        Integer currentYear = now.get(Calendar.YEAR);
+
+        map.store("year", "in 0 years");
+        map.store("base_year", "1990");
         Integer matchingMode = TemplateEngine.DEFAULT;
         String result = engine.evaluate("I was born in ${year}", map, matchingMode);
         assertEquals("I was born in " + Integer.toString(currentYear), result);
