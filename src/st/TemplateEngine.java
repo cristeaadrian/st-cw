@@ -23,7 +23,6 @@ public class TemplateEngine {
 
     public Calendar now = Calendar.getInstance();          // Gets the current date and time
     public Integer currentYear = now.get(Calendar.YEAR);   // The current year
-    public Boolean replacementEligible = Boolean.FALSE;
 
     public TemplateEngine(){
 
@@ -46,14 +45,12 @@ public class TemplateEngine {
         for (EntryMap.Entry entry : entryMap.getEntries()) {
             if (entry.getPattern().equals("base_year")) {
                 String value = entry.getValue();
-                System.out.println("Year: " + value);
                 if (value != null && value != "" && isParsable(value)) {
                     Integer year = Integer.parseInt(value);
                     if (year > 0) {
                         currentYear = year;
                     }
                 }
-                System.out.println("Current Year: " + currentYear);
             }
         }
         Result result = instantiate(templateString, sortedTemplates, entryMap.getEntries(), matchingMode);
