@@ -31,6 +31,7 @@ public class Task2_TDD_2 {
     @Test
     public void notNumber() {
         map.store("year", "in asdf years");
+        map.store("base_year", "1990");
         Integer matchingMode = TemplateEngine.DEFAULT;
         String result = engine.evaluate("I was born in ${year}", map, matchingMode);
         assertEquals("I was born in in asdf years", result);
@@ -43,6 +44,7 @@ public class Task2_TDD_2 {
     @Test
     public void negativeNumber() {
         map.store("year", "in -10 years");
+        map.store("base_year", "1990");
         Integer matchingMode = TemplateEngine.DEFAULT;
         String result = engine.evaluate("I was born in ${year}", map, matchingMode);
         assertEquals("I was born in in -10 years", result);
@@ -50,19 +52,6 @@ public class Task2_TDD_2 {
         map.update("year", "-10 years ago");
         result = engine.evaluate("I was born in ${year}", map, matchingMode);
         assertEquals("I was born in -10 years ago", result);
-    }
-
-    @Test
-    public void negativeNumberBaseYearExists() {
-        map.store("year", "in -10 years");
-        map.store("base_year", "1990");
-        Integer matchingMode = TemplateEngine.DEFAULT;
-        String result = engine.evaluate("I was born in ${year}", map, matchingMode);
-        assertEquals("I was born in 1990", result);
-
-        map.update("year", "-10 years ago");
-        result = engine.evaluate("I was born in ${year}", map, matchingMode);
-        assertEquals("I was born in 1990", result);
     }
 
     /* Spec 2:
