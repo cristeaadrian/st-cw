@@ -108,7 +108,7 @@ public class Task2_TDD_1 {
         assertEquals("I was born in " + Integer.toString(currentYear - 2), result);
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void containsBaseYearNull() {
         Calendar now = Calendar.getInstance();
         Integer currentYear = now.get(Calendar.YEAR);
