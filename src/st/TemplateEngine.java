@@ -51,6 +51,7 @@ public class TemplateEngine {
                         currentYear = year;
                     }
                 }
+                break;
             }
         }
         Result result = instantiate(templateString, sortedTemplates, entryMap.getEntries(), matchingMode);
