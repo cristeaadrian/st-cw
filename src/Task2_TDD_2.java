@@ -53,11 +53,16 @@ public class Task2_TDD_2 {
     }
 
     @Test
-    public void emptyYear() {
-        map.store("year", "");
+    public void negativeNumberBaseYearExists() {
+        map.store("year", "in -10 years");
+        map.store("base_year", "1990");
         Integer matchingMode = TemplateEngine.DEFAULT;
         String result = engine.evaluate("I was born in ${year}", map, matchingMode);
-        assertEquals("I was born in ", result);
+        assertEquals("I was born in 1990", result);
+
+        map.update("year", "-10 years ago");
+        result = engine.evaluate("I was born in ${year}", map, matchingMode);
+        assertEquals("I was born in 1990", result);
     }
 
     /* Spec 2:
@@ -81,9 +86,6 @@ public class Task2_TDD_2 {
 
     @Test
     public void valueIsZeroBaseYearExists() {
-        Calendar now = Calendar.getInstance();
-        Integer currentYear = now.get(Calendar.YEAR);
-
         map.store("year", "in 0 years");
         map.store("base_year", "1990");
         Integer matchingMode = TemplateEngine.DEFAULT;
