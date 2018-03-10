@@ -23,7 +23,7 @@ public class Task2_Mutation {
     }
 
     /*
-    ---------------------- Mutation 1 ----------------------
+    ------------------- Mutations 1 and 9 -------------------
      * 2 Tests fail in total
      */
 
@@ -251,21 +251,6 @@ public class Task2_Mutation {
         String result = simpleEngine.evaluate(template, pattern, value, matchingMode);
         assertEquals("localVARIABLE int localId = local; globalVARIABLE int globalId = global;", result);
     }
-
-    /*
-    ---------------------- Mutation 9 ----------------------
-     */
-
-//    @Test
-//    public void templateOrder() {
-//        map.store("lm", " ");
-//        Integer matchingMode = TemplateEngine.DEFAULT;
-//        String result = engine.evaluate("${fgijk${lm}nopqr}", map, matchingMode);
-//        assertEquals("${fgijk nopqr}", result);
-//        map.store("fgijk nopqr", "Hello world");
-//        result = engine.evaluate("${fgijk${lm}nopqr}", map, matchingMode);
-//        assertEquals("Hello world", result);
-//    }
 
     /*
     ---------------------- Mutation 10 ----------------------
