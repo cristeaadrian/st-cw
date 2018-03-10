@@ -24,7 +24,7 @@ public class Task2_Mutation {
 
     /*
     ---------------------- Mutation 1 ----------------------
-     * 2 tests fail in total
+     * 2 Tests fail in total
      */
 
     @Test
@@ -48,7 +48,7 @@ public class Task2_Mutation {
 
     /*
     ---------------------- Mutation 2 ----------------------
-     * 2 tests fail in total
+     * 2 Tests fail in total
      */
 
     @Test
@@ -158,7 +158,7 @@ public class Task2_Mutation {
 
     /*
     ---------------------- Mutation 4 ----------------------
-     * All tests pass
+     * All Tests pass
      */
 
 
