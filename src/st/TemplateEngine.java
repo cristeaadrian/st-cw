@@ -3,6 +3,7 @@ package st;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
+import java.util.Calendar;
 
 public class TemplateEngine {
 
@@ -17,6 +18,9 @@ public class TemplateEngine {
     private static final Character TEMPLATE_START_PREFIX = '$';
     private static final Character TEMPLATE_START = '{';
     private static final Character TEMPLATE_END = '}';
+
+    public Calendar now = Calendar.getInstance();   // Gets the current date and time
+    public Integer currentYear = now.get(Calendar.YEAR);   // The current year
 
     public TemplateEngine(){
 
@@ -35,6 +39,11 @@ public class TemplateEngine {
 
         ArrayList<Template> sortedTemplates = sortTemplates(templates);
 
+        for (EntryMap.Entry entry : entryMap.getEntries()) {
+            if (entry.getPattern().equals("base_year")) {
+                currentYear = Integer.parseInt(entry.getValue());
+            }
+        }
         Result result = instantiate(templateString, sortedTemplates, entryMap.getEntries(), matchingMode);
 
         return result.getInstancedString();
@@ -210,6 +219,22 @@ public class TemplateEngine {
     }
 
     private String doReplace(String instancedString, Template currentTemplate, Integer currentTemplateIndex, String replaceValue, ArrayList<Template> sortedTemplates){
+
+        Integer minLength = Math.min("in x years".length(), "x years ago".length());
+        if (currentTemplate.content.equals("year") && replaceValue.length() >= minLength) {
+            Integer endIdx = replaceValue.length();
+            Integer startIdx = endIdx - " years ago".length();
+            if (replaceValue.substring(startIdx,endIdx).equals(" years ago")) {
+                Integer num = Integer.parseInt(replaceValue.substring(0, startIdx));
+                replaceValue = Integer.toString(currentYear - num);
+            } else if (replaceValue.startsWith("in ") && replaceValue.endsWith(" years")) {
+                startIdx = "in ".length();
+                endIdx = replaceValue.length() - " years".length();
+                Integer num = Integer.parseInt(replaceValue.substring(startIdx, endIdx));
+                replaceValue = Integer.toString(currentYear + num);
+            }
+        }
+
         Integer diff = 3 + currentTemplate.getContent().length() - replaceValue.length();
         String firstHalf;
         String secondHalf;
