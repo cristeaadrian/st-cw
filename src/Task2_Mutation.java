@@ -163,10 +163,10 @@ public class Task2_Mutation {
 
     @Test
     public void longTemplate() {
-        map.store("${abcdefghijklmnopqrstuvwxyz0123456789}", "A very long template");
+        map.store("abcdefghijklmnopqrstuvwxyz0123456789", "A very long template");
         Integer matchingMode = TemplateEngine.DEFAULT;
         String result = engine.evaluate("${abcdefghijklmnopqrstuvwxyz0123456789}", map, matchingMode);
-        assertEquals(result, "");
+        assertEquals(result, "A very long template");
     }
 
     /*
