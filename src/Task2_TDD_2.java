@@ -142,7 +142,6 @@ public class Task2_TDD_2 {
     }
 
     /* Check that all usual input values work correctly
-     * TODO: Check special cases
      */
 
     @Test
